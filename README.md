@@ -4,19 +4,18 @@ Designed to deepen the connection between authors and their readers. This websit
 
 Authorized users (authors) can manage blog posts effortlessly, with capabilities to create, edit, and delete content directly from the platform. These users will also have an admin view where they'll be able to see the total amount of users that have signed up and the number of posts that have been created. 
 
-Link to deplyed app: https://capstone-project-authors-website.onrender.com
+Link to deplyed app: https://capstone-project-authors-interactive.onrender.com
 
 
 ## App Build Overview
 
-#### How to Run App:
+#### How to Run the App:
 
 - **Step 1:** Once repository has been cloned, go into your terminal, navigate to your repository and create a virtual enviroment. 
 - **Step 2:** Activate virtual enviroment and use command `pip install -r requirements.txt` in the termanal to copy over the needed dependencies. 
 - **Step 3:** Create your database and start server. To create a database enter `createdb authors_website_db` in the terminal.
-- **Step 4:** In order to have admin priviledges, you will need to seed the data in the seed.py file. This will create an admin sample test user and a blog post. To seed the data enter the command "python seed.py" in the terminal. 
-- **Step 5:** Run server. This app uses Flask framework for the backend, therefore, to run the server type `flask run` to start the server.
-
+- **Step 4:** Generate an API key for the OpenAI API (visit this [link](https://platform.openai.com/docs/quickstart?context=python) for details). This will allow the chat functionality.
+- **Step 5:** Run server. This app uses Flask framework for the backend, therefore, to run the server type `flask run`.
 - **Step 6:** Enjoy playing around with the app!
 
 ***Note: The API used in this app is a free version of OpenAi which contains strict rate limits: 40,000 TPM (tokens per minute), 3 RPM (request per minutes) and 200 RPD (request per day). For more information about rate limits visit https://platform.openai.com/docs/guides/rate-limits***
