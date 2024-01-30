@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="landing-page-title">Blog Posts</h2>
+
+{% if user.is_admin %}
+    <form action="/blog/new" class="create-post-form" method="POST">
+        <button >New Post</button>
+    </form>
+{% endif %}
+
+<div class="blog-posts-container">
+{% for blog_post in blog_posts %}
+
+    <div data-blog-post-id="{{ blog_post.id }}" class="blog-posts">
+       
+          
+                <a href="/blog/{{blog_post.id}}"><img src="{{ blog_post.image_url }}" alt="{{ blog_post.title }}"></a>
+                <p>{{ blog_post.title }}</p>
+           
+        
+    </div>
+
+    
+{% endfor %}
+</div>
+
+
+{% endblock %}

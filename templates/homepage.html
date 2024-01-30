@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="hero-container">
+    <img id="chatbot-spotlight" src="/static/images/homepage_images/chatbot_image.png">
+    <div>
+        <h4 id="chatbot-title">CHATBOT FUN TIME:</h4>
+        <p class="chatbot-description">Unlock the whimsical world of Sam Satito! </p>
+        <p class="chatbot-description">Sign up and have a chat with the characters for a touch of magic in your day.</p>
+        <a href="/chat">
+            <button>Chat Now</button>
+        </a>
+    </div>
+</div>
+
+
+
+
+<div class="book-content">
+    <div class="book-image-container">
+
+        <div>
+            <a href="{{ url_for('get_sam_satito_book_content') }}"><img src="/static/images/homepage_images/small-SamSatito_bookCover.jpg" alt="Sam Satito"></a>
+            
+            <br>
+            <a href="https://www.amazon.com/Satito-Spanish-Sandra-Colorado-Vega/dp/B09DJCLR3L">
+                <button>buy</button>
+            </a>
+        </div>
+        <div>
+            <a href="{{ url_for('get_limites_de_la_cordura_book_content') }}">
+            <img src="/static/images/homepage_images/small-ElDiaQueTrascendi_bookCover.jpg"
+                alt="El Dia que Trascendi los Limited del la Cordura"></a>
+            <br>
+            <a href="https://www.amazon.com/-/es/Sandra-M-Colorado/dp/B09YQ4WD8S">
+                <button>buy</button>
+            </a>
+        </div>
+        <div>
+            <a href="{{ url_for('get_simpre_en_viernes_book_content') }}">
+                <img src="/static/images/homepage_images/small-SiempreEnViernes_bookCover.jpg" alt="Siempre en Viernes">
+
+            </a>
+            <br>
+            <a href="https://www.amazon.com/-/es/Sandra-M-Colorado-Vega/dp/B087CRQGL4">
+                <button>buy</button>
+            </a>
+        </div>
+        <div>
+            <a href="{{ url_for('get_7_a_9_book_content') }}">
+                <img class="homepage-book-cover" src="/static/images/homepage_images/small-De7a9_image_bookCover.jpg"
+                alt="De 7:00 a 9:00: relatos insólitos">
+            </a>
+
+            <br>
+            <a href="https://www.amazon.com/-/es/Sandra-M-Colorado-Vega/dp/1736061410">
+                <button>buy</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="blog-content">
+
+        {% if blog_posts %}
+        <div id="blog-title">
+            <h3>RECENT BLOG POSTS:</h3>
+        </div>
+        
+        <div class="blog-image-container">
+
+            {% for blog_post in blog_posts %}
+            <div data-blog-post-id="{{ blog_post.id }}">
+                <li>
+                    <ul>
+                        <a href="/blog/{{blog_post.id}}"><img src="{{ blog_post.image_url }}"
+                                alt="{{ blog_post.title }}"></a>
+                    </ul>
+                </li>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

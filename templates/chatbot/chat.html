@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="chat-form">
+    <div class="container">
+
+        {% if user_input %}
+        <p>You: {{user_input}}</p>
+        {% endif %}
+        <p>{{character}}: {{assistant_reply}}</p>
+
+
+        <form method="post" action="{{ url_for('chat', character=session['selected_character']) }}">
+
+            <label for="user_input">Your Message:</label>
+            <input type="text" name="user_input" id="user_input" placeholder="Type your message" required>
+
+
+            <button id='button-orange' type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

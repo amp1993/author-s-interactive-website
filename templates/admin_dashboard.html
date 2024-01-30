@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    
+    <div class="dashboard-content">
+        <div class="dashboard-highlights">
+         
+            <p> Total Users: {{ total_users }}</p>
+       
+            <p>Total Blog Posts: {{ total_blog_posts }}</p>
+        </div>
+    
+        <div>
+            <h2>New Users (Last Week)</h2>
+    </div>
+    
+        <div class="table-container">
+        <table >
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Subscribed to Newsletter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in new_users %}
+                    <tr>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.subscribe }}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+{% endblock %}
