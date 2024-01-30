@@ -23,20 +23,9 @@ class User(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     admin_user = db.Column(db.Boolean, default=False)
 
-
-    def serialize_user(self):
-        
-        return {
-                'id' : self.id,
-                'first_name': self.first_name,
-                'last_name': self.last_name,
-                'email': self.email,
-                'password': self.password,
-            }
-
     
     @classmethod
-    def signup(cls, first_name, last_name, email, password, subscribe, admin_user):
+    def signup(cls, first_name, last_name, email, password, subscribe, admin_user = False):
         """Sign up user.
 
         Hashes password and adds user to system.
