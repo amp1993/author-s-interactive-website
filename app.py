@@ -19,9 +19,8 @@ app = Flask(__name__)
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-app.config['SECRET_KEY'] = 'mysecretkey'
-
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://tnvcftgx:CzjhaXjAmDtX6TCv1hiYeddW3qz7iiOK@mahmud.db.elephantsql.com/tnvcftgx"
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 
 
 
