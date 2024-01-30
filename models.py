@@ -21,7 +21,7 @@ class User(db.Model):
     password = db.Column(db.Text, nullable = False)
     subscribe = db.Column(db.Boolean, nullable= False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    admin_user = db.Column(db.Boolean, nullable=True, default=False)
+    admin_user = db.Column(db.Boolean, default=False)
 
 
     def serialize_user(self):
