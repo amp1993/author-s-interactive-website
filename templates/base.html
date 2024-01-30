@@ -30,8 +30,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
 
-                    <!-- dropdown menu -->
-                    <div class="nav-item dropdown">
+                      <!-- dropdown menu -->
+                      <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="book-nav" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Books</a>
                         <div class="dropdown-menu" aria-labelledby="book-nav">
@@ -58,7 +58,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('select_character') }}">Chatbot</a>
                     </li>
-                    {% if g.user.is_admin %}
+                    {% if g.user.admin_user == True %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('show_admin_report') }}">Dashboard</a>
                     </li>

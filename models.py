@@ -5,6 +5,12 @@ from datetime import datetime
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 
+def init_db(app):
+    db.init_app(app)
+    bcrypt.init_app(app)
+    with app.app_context():
+        db.create_all()
+
 class User(db.Model):
     __tablename__='users'
 
@@ -15,8 +21,7 @@ class User(db.Model):
     password = db.Column(db.Text, nullable = False)
     subscribe = db.Column(db.Boolean, nullable= False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    admin_user = db.relationship('Admin_User', back_populates='user')
+    admin_user = db.Column(db.Boolean, nullable=True, default=False)
 
 
     def serialize_user(self):
@@ -31,7 +36,7 @@ class User(db.Model):
 
     
     @classmethod
-    def signup(cls, first_name, last_name, email, password, subscribe):
+    def signup(cls, first_name, last_name, email, password, subscribe, admin_user):
         """Sign up user.
 
         Hashes password and adds user to system.
@@ -45,7 +50,8 @@ class User(db.Model):
             last_name = last_name,
             email= email,
             password= hashed_pwd,
-            subscribe = subscribe
+            subscribe = subscribe,
+            admin_user=admin_user
             )
 
         db.session.add(user)
@@ -64,9 +70,7 @@ class User(db.Model):
 
         return False
     
-    @property
-    def is_admin(self):
-        return Admin_User.query.filter_by(user_id=self.id).first() is not None
+   
 
 
 
@@ -84,14 +88,6 @@ class Blog_Post(db.Model):
 
 
 
-    
-class Admin_User(db.Model):
-
-    __tablename__='admin_users'
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable = False)
-    user = db.relationship('User', back_populates='admin_user')
 
   
 def connect_db(app):

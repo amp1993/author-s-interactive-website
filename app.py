@@ -4,46 +4,46 @@ from flask_debugtoolbar import DebugToolbarExtension
 from dotenv import load_dotenv
 
 from forms import SignUpForm, LoginForm, CreateBlogPost,EditBlogPost, CharacterSelectionForm
-from models import User, Blog_Post, connect_db, db
+from models import User, Blog_Post, init_db, db
 import openai
 from openai.error import OpenAIError
 from datetime import datetime, timedelta
+from seed import create_blog_post, create_sample_user
 
 import os
 
 #Load variables from .env
-load_dotenv()
 
 
 app = Flask(__name__)
 
+load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
-
-
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['DEBUG'] = True
-# toolbar = DebugToolbarExtension(app)
 
 CURR_USER_KEY = "curr_user"
-
 
 # Fetch story to be used for API
 with open("SamSatito.txt", "r", encoding="utf-8") as file:
     story = file.read()
 
+# Initialize the database
+init_db(app)
 
 with app.app_context():
-    
-    connect_db(app)
-    db.create_all()
+    create_sample_user()
+    create_blog_post()
+
 
 def init_conversation():
     if 'conversation' not in session:
         session['conversation'] = []
+
+
+
 
 
 
@@ -182,7 +182,7 @@ def show_selected_blog_post(blog_post_id):
 def create_blog_post():
     try:
     # Check if the user is logged in and is an admin
-        if g.user is None or not g.user.is_admin:
+        if g.user is None or not g.user.admin_user:
             flash("User unauthorized.", "danger")
             return redirect("/")
 
@@ -212,7 +212,7 @@ def edit_blog_post(blog_post_id):
     try:
 
     # Check if the user is logged in and is an admin
-        if g.user is None or not g.user.is_admin:
+        if g.user is None or not g.user.admin_user:
             flash("User unauthorized.", "danger")
             return redirect("/")
 
@@ -243,7 +243,7 @@ def edit_blog_post(blog_post_id):
 def delete_blog_post(blog_post_id):
     try:
         # Check if the user is logged in and is an admin
-        if g.user is None or not g.user.is_admin:
+        if g.user is None or not g.user.admin_user:
             flash("User unauthorized.", "danger")
             return redirect("/")
         
@@ -392,7 +392,7 @@ def about():
 def show_admin_report():
      
     try:
-        if g.user is None or not g.user.is_admin:
+        if g.user is None or not g.user.admin_user:
             flash("User unauthorized.", "danger")
             return redirect("/")
         

@@ -5,7 +5,7 @@
     <h2 class="landing-page-title">{{blog_post.title}}</h2>
 
 
-    {% if user.is_admin %}
+    {% if g.user.admin_user == True %}
     <div class="buttons-container">
         <form action="/blog/{{blog_post.id}}/edit" method="post">
             <button class="blue-button">Edit Post</button>
